@@ -1,21 +1,34 @@
 import { useState } from 'react';
 import { Box, Typography } from '@mui/material';
 
+import { BigButton } from '@/styles/components';
+
 export function Cards({ drawnCards, render }) {
   const [selected, setSelected] = useState('');
-  return (
-    <>
-      {drawnCards.map((card) => {
-        const cardId = card.value.concat(card.suit);
-        return render({
-          key: cardId,
-          card,
-          isSelected: selected === cardId,
-          select: () => setSelected(cardId),
-        });
-      })}
-    </>
-  );
+
+  return drawnCards.map((card) => {
+    const cardId = card.value.concat(card.suit);
+
+    return render({
+      key: cardId,
+      card,
+      isSelected: selected === cardId,
+      select: () => setSelected(cardId),
+      unselect: () => setSelected(''),
+    });
+  });
+}
+
+export function CardWrapper({ card, isSelected, unselect }) {
+  if (isSelected) {
+    return (
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        {card}
+        <BigButton onClick={unselect}>Unselect</BigButton>
+      </Box>
+    );
+  }
+  return card;
 }
 
 export function Card({ name, color, image, isSelected, select }) {

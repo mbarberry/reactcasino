@@ -1,55 +1,46 @@
 import { useContext } from 'react';
-import { Box, Button, Typography, styled } from '@mui/material';
-import { CasinoContext } from './Casino';
+import { Box, Typography } from '@mui/material';
 
-const BigButton = styled(Button)({
-  height: '70px',
-  fontSize: 28,
-});
+import { CasinoContext } from './Casino';
+import { BigButton } from '@/styles/components';
+import { handleCreate, handleShuffle, handleDraw } from '@/utils/deckActions';
 
 export function DeckWrapper({ deckId, render }) {
   return render(!!deckId);
 }
 
+export function DeckActions({ count, addCard, initializeNewDeck }) {
+  const { API_URL, deckId } = useContext(CasinoContext);
+
+  if (count > 0) {
+    return (
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <Typography variant='h3'>Cards available: {count}</Typography>
+        <BigButton onClick={() => handleShuffle(API_URL, deckId)}>
+          Shuffle
+        </BigButton>
+        <BigButton onClick={() => handleDraw(API_URL, deckId, addCard)}>
+          Draw
+        </BigButton>
+      </Box>
+    );
+  }
+  return (
+    <BigButton onClick={() => handleCreate(API_URL, initializeNewDeck)}>
+      New Deck
+    </BigButton>
+  );
+}
+
 export function CreateDeck({ initializeDeck }) {
   const { API_URL } = useContext(CasinoContext);
-
-  const handleCreate = async () => {
-    const res = await fetch(`${API_URL}/deck/new`);
-    const json = await res.json();
-    initializeDeck(json.deck_id);
-  };
 
   return (
     <>
       <Typography variant='h3'>Create a deck to get started</Typography>
-      <BigButton onClick={handleCreate}>Create Deck</BigButton>
-    </>
-  );
-}
-
-export function DeckActions({ count, addCard }) {
-  const { deckId, API_URL } = useContext(CasinoContext);
-
-  const handleShuffle = async () => {
-    await fetch(`${API_URL}/deck/${deckId}/shuffle/?remaining=true`);
-  };
-
-  const handleDraw = async () => {
-    const res = await fetch(`${API_URL}/deck/${deckId}/draw/?count=1`);
-    const json = await res.json();
-    addCard(json.cards[0]);
-  };
-
-  return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-      <Typography variant='h3'>Cards available: {count}</Typography>
-      <BigButton onClick={handleShuffle}>Shuffle</BigButton>
-      <BigButton
-        onClick={handleDraw}
-        disabled={count <= 0}>
-        Draw
+      <BigButton onClick={() => handleCreate(API_URL, initializeDeck)}>
+        Create Deck
       </BigButton>
-    </Box>
+    </>
   );
 }

@@ -2,7 +2,7 @@ import { useState, createContext } from 'react';
 
 import { CasinoContainer, DeckContainer, CardsContainer } from './Containers';
 import { DeckWrapper, DeckActions, CreateDeck } from './Deck';
-import { Cards, Card } from './Cards';
+import { Cards, Card, CardWrapper } from './Cards';
 
 export const CasinoContext = createContext(null);
 
@@ -25,6 +25,10 @@ export default function Casino() {
                     addCard={(card) => {
                       setDrawnCards([...drawnCards, card]);
                     }}
+                    initializeNewDeck={(id) => {
+                      setDrawnCards([]);
+                      setDeckId(id);
+                    }}
                   />
                 );
               }
@@ -35,15 +39,23 @@ export default function Casino() {
         <CardsContainer>
           <Cards
             drawnCards={drawnCards}
-            render={({ key, card, isSelected, select }) => {
+            render={({ key, card, isSelected, select, unselect }) => {
               return (
-                <Card
+                <CardWrapper
                   key={key}
-                  name={`${card.value} of ${card.suit}`}
-                  color={'SPADESCLUBS'.includes(card.suit) ? 'black' : 'red'}
-                  image={card.images.png}
+                  card={
+                    <Card
+                      name={`${card.value} of ${card.suit}`}
+                      color={
+                        'SPADESCLUBS'.includes(card.suit) ? 'black' : 'red'
+                      }
+                      image={card.images.png}
+                      isSelected={isSelected}
+                      select={select}
+                    />
+                  }
                   isSelected={isSelected}
-                  select={select}
+                  unselect={unselect}
                 />
               );
             }}
