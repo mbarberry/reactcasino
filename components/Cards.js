@@ -3,19 +3,17 @@ import { Box, Typography } from '@mui/material';
 
 export function Cards({ drawnCards, render }) {
   const [selected, setSelected] = useState('');
-  return (
-    <>
-      {drawnCards.map((card) => {
-        const cardId = card.value.concat(card.suit);
-        return render({
-          key: cardId,
-          card,
-          isSelected: selected === cardId,
-          select: () => setSelected(cardId),
-        });
-      })}
-    </>
-  );
+
+  return drawnCards.map((card) => {
+    const cardId = card.value.concat(card.suit);
+
+    return render({
+      key: cardId,
+      card,
+      isSelected: selected === cardId,
+      select: () => setSelected(cardId),
+    });
+  });
 }
 
 export function Card({ name, color, image, isSelected, select }) {

@@ -1,11 +1,8 @@
 import { useContext } from 'react';
-import { Box, Button, Typography, styled } from '@mui/material';
-import { CasinoContext } from './Casino';
+import { Box, Typography } from '@mui/material';
 
-const BigButton = styled(Button)({
-  height: '70px',
-  fontSize: 28,
-});
+import { CasinoContext } from './Casino';
+import { BigButton } from './styled';
 
 export function DeckWrapper({ deckId, render }) {
   return render(!!deckId);
