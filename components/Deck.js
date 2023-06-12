@@ -11,14 +11,15 @@ export function DeckWrapper({ deckId, render }) {
   return render(!!deckId);
 }
 
-export function CreateDeck({ setDeckId }) {
+export function CreateDeck({ initializeDeck }) {
   const { API_URL } = useContext(CasinoContext);
 
   const handleCreate = async () => {
     const res = await fetch(`${API_URL}/deck/new`);
     const json = await res.json();
-    setDeckId(json.deck_id);
+    initializeDeck(json.deck_id);
   };
+
   return (
     <>
       <Typography variant='h3'>Create a deck to get started</Typography>
@@ -44,7 +45,11 @@ export function DeckActions({ count, addCard }) {
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <Typography variant='h3'>Cards available: {count}</Typography>
       <BigButton onClick={handleShuffle}>Shuffle</BigButton>
-      <BigButton onClick={handleDraw}>Draw</BigButton>
+      <BigButton
+        onClick={handleDraw}
+        disabled={count <= 0}>
+        Draw
+      </BigButton>
     </Box>
   );
 }

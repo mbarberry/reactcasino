@@ -28,22 +28,22 @@ export default function Casino() {
                   />
                 );
               }
-              return <CreateDeck setDeckId={setDeckId} />;
+              return <CreateDeck initializeDeck={(id) => setDeckId(id)} />;
             }}
           />
         </DeckContainer>
         <CardsContainer>
           <Cards
             drawnCards={drawnCards}
-            render={({ key, card, isHighlighted, highlight }) => {
+            render={({ key, card, isSelected, select }) => {
               return (
                 <Card
                   key={key}
                   name={`${card.value} of ${card.suit}`}
-                  color={'SPADES CLUBS'.includes(card.suit) ? 'black' : 'red'}
+                  color={'SPADESCLUBS'.includes(card.suit) ? 'black' : 'red'}
                   image={card.images.png}
-                  isHighlighted={isHighlighted}
-                  highlight={highlight}
+                  isSelected={isSelected}
+                  select={select}
                 />
               );
             }}

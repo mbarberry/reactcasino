@@ -2,39 +2,41 @@ import { useState } from 'react';
 import { Box, Typography } from '@mui/material';
 
 export function Cards({ drawnCards, render }) {
-  const [highlighted, setHighlighted] = useState('');
+  const [selected, setSelected] = useState('');
   return (
     <>
       {drawnCards.map((card) => {
         const cardId = card.value.concat(card.suit);
-
         return render({
           key: cardId,
           card,
-          isHighlighted: highlighted === cardId,
-          highlight: () => setHighlighted(cardId),
+          isSelected: selected === cardId,
+          select: () => setSelected(cardId),
         });
       })}
     </>
   );
 }
 
-export function Card({ name, color, image, isHighlighted, highlight }) {
-  const border = isHighlighted ? { border: `2px solid ${color}` } : {};
-
+export function Card({ name, color, image, isSelected, select }) {
   return (
     <Box
-      onClick={highlight}
-      sx={{ display: 'flex', flexDirection: 'column', gap: '10px', ...border }}>
+      onClick={select}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '10px',
+        ...(isSelected ? { border: `2px solid ${color}` } : {}),
+      }}>
       <Typography
         variant='h5'
-        sx={{ color: color }}>
+        sx={{ color }}>
         {name}
       </Typography>
       <Box
         component='img'
         src={image}
-        alt='image of card'
+        alt={`${name} PLAYING CARD`}
         sx={{ height: '200px', width: '140px' }}
       />
     </Box>
