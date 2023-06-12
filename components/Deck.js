@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { Box, Button, Typography, styled } from '@mui/material';
-import { DeckContext } from './Casino';
+import { CasinoContext } from './Casino';
 
 const BigButton = styled(Button)({
   height: '70px',
@@ -8,15 +8,11 @@ const BigButton = styled(Button)({
 });
 
 export function DeckWrapper({ deckId, render }) {
-  if (deckId) {
-    return render(true);
-  } else {
-    return render(false);
-  }
+  return render(!!deckId);
 }
 
 export function CreateDeck({ setDeckId }) {
-  const { API_URL } = useContext(DeckContext);
+  const { API_URL } = useContext(CasinoContext);
 
   const handleCreate = async () => {
     const res = await fetch(`${API_URL}/deck/new`);
@@ -32,7 +28,7 @@ export function CreateDeck({ setDeckId }) {
 }
 
 export function DeckActions({ count, addCard }) {
-  const { deckId, API_URL } = useContext(DeckContext);
+  const { deckId, API_URL } = useContext(CasinoContext);
 
   const handleShuffle = async () => {
     await fetch(`${API_URL}/deck/${deckId}/shuffle/?remaining=true`);

@@ -1,25 +1,24 @@
 import { useState, createContext } from 'react';
-import { Button } from '@mui/material';
 
 import { CasinoContainer, DeckContainer, CardsContainer } from './Containers';
 import { DeckWrapper, DeckActions, CreateDeck } from './Deck';
 import { Cards, Card } from './Cards';
 
-export const DeckContext = createContext(null);
+export const CasinoContext = createContext(null);
 
 export default function Casino() {
   const [deckId, setDeckId] = useState(null);
   const [drawnCards, setDrawnCards] = useState([]);
 
   return (
-    <CasinoContainer>
-      <DeckContext.Provider
-        value={{ API_URL: 'https://deckofcardsapi.com/api', deckId }}>
+    <CasinoContext.Provider
+      value={{ API_URL: 'https://deckofcardsapi.com/api', deckId }}>
+      <CasinoContainer>
         <DeckContainer>
           <DeckWrapper
             deckId={deckId}
-            render={(isDeckCreated) => {
-              if (isDeckCreated) {
+            render={(deck) => {
+              if (deck) {
                 return (
                   <DeckActions
                     count={52 - drawnCards.length}
@@ -50,7 +49,7 @@ export default function Casino() {
             }}
           />
         </CardsContainer>
-      </DeckContext.Provider>
-    </CasinoContainer>
+      </CasinoContainer>
+    </CasinoContext.Provider>
   );
 }
