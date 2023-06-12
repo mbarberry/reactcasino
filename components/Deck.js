@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { Box, Button, Typography, styled } from '@mui/material';
 import { CasinoContext } from './Casino';
 
