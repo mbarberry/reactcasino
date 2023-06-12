@@ -36,13 +36,15 @@ export default function Casino() {
         <CardsContainer>
           <Cards
             drawnCards={drawnCards}
-            render={({ name, color, image }) => {
+            render={({ key, card, isHighlighted, highlight }) => {
               return (
                 <Card
-                  key={name}
-                  name={name}
-                  color={color}
-                  image={image}
+                  key={key}
+                  name={`${card.value} of ${card.suit}`}
+                  color={'SPADES CLUBS'.includes(card.suit) ? 'black' : 'red'}
+                  image={card.images.png}
+                  isHighlighted={isHighlighted}
+                  highlight={highlight}
                 />
               );
             }}
