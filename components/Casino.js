@@ -14,7 +14,7 @@ export default function Casino() {
   return (
     <CasinoContainer>
       <DeckContext.Provider
-        value={{ deckId, API_URL: 'https://deckofcardsapi.com/api' }}>
+        value={{ API_URL: 'https://deckofcardsapi.com/api', deckId }}>
         <DeckContainer>
           <DeckWrapper
             deckId={deckId}
