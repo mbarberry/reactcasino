@@ -1,19 +1,19 @@
 import Casino from '@/components/Casino';
 import Box from '@mui/material/Box';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export default function Home() {
+  const mobile = useMediaQuery('(max-width:730px)');
   return (
-    <>
-      <Box
-        sx={{
-          height: '100vh',
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          paddingBottom: '120px',
-        }}>
-        <Casino />
-      </Box>
+    <Box
+      sx={{
+        height: '100vh',
+        width: '100vw',
+        display: 'flex',
+        justifyContent: 'space-around',
+        flexDirection: mobile ? 'column' : 'row',
+      }}>
+      <Casino mobile={mobile} />
       <Box
         sx={{
           height: '120px',
@@ -25,7 +25,7 @@ export default function Home() {
           color: 'white',
           fontWeight: '20px',
         }}>
-        <p class='attribution'>Built and maintained with&nbsp;</p>
+        <p className='attribution'>Built and maintained with&nbsp;</p>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           fill='white'
@@ -44,6 +44,6 @@ export default function Home() {
           &nbsp;Mike Barberry
         </Box>
       </Box>
-    </>
+    </Box>
   );
 }
