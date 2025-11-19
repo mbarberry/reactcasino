@@ -1,6 +1,9 @@
 import { Box, Typography } from '@mui/material';
+import { useContext } from 'react';
+import { CasinoContext } from './Casino';
 
 export function CasinoContainer({ children }) {
+  const { mobile } = useContext(CasinoContext);
   return (
     <Box
       sx={{

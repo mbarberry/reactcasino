@@ -6,13 +6,17 @@ import { Cards, Card } from './Cards';
 
 export const CasinoContext = createContext(null);
 
-export default function Casino() {
+export default function Casino({ mobile }) {
   const [deckId, setDeckId] = useState(null);
   const [drawnCards, setDrawnCards] = useState([]);
 
   return (
     <CasinoContext.Provider
-      value={{ API_URL: 'https://deckofcardsapi.com/api', deckId }}>
+      value={{
+        API_URL: 'https://deckofcardsapi.com/api',
+        deckId,
+        mobile,
+      }}>
       <CasinoContainer>
         <DeckContainer>
           <DeckWrapper
