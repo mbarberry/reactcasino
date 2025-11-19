@@ -4,7 +4,6 @@ import { CasinoContext } from './Casino';
 
 export function CasinoContainer({ children }) {
   const { mobile } = useContext(CasinoContext);
-  console.log(`Are we on mobileeeeeezzz?: ${mobile ? `yes sir` : `no ma'am`}`);
   return (
     <Box
       sx={{

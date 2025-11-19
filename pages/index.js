@@ -7,17 +7,17 @@ export default function Home() {
   return (
     <Box
       sx={{
-        height: '100vh',
+        minHeight: '100vh',
         width: '100vw',
         display: 'flex',
-        justifyContent: 'space-around',
-        flexDirection: mobile ? 'column' : 'row',
+        justifyContent: 'space-between',
+        flexDirection: 'column',
       }}>
       <Casino mobile={mobile} />
       <Box
         sx={{
           height: '120px',
-          backgroundColor: 'purple',
+          backgroundColor: 'red',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
